@@ -1,0 +1,103 @@
+body{
+	font-family: '微软雅黑';
+	/*height: 10000px;*/
+	margin:0;
+	min-width: 640px;
+	/*background:#7777F5;*/
+
+}
+.item{
+	width: 100%;
+	background: url(../images/shu.png);
+}
+.hang{
+	position: absolute;
+	right:193px;
+	top:50px;
+
+}
+#enter{
+	border-radius: 30px;
+	background: rgba(255,0,0,0.5);
+	padding: 5px 20px; 
+	color: white;
+}
+#shuru{
+	width: 20px;
+	height: 20px;
+	outline: none;/*原来点击有颜色，加这个取消*/
+	/*border: */
+	padding:2px 10px; 
+	margin-right: 10px;
+
+
+}
+.content{
+	position: relative;
+	padding-top: 10px;
+}
+#bg{
+	width: 640px;
+	height:650px;
+	background: url(../images/bg.png) no-repeat;
+	margin:0 auto;
+	padding-top:20px; 
+}
+#shescene{
+	width: 600px;
+	height:600px;
+	
+	/*border-left: 1px solid #bcde03;*/
+	/*border-top: 1px solid #bcde03;*/
+	margin:0 auto;
+ }
+ .she-block{
+ 	/*background: white;*/
+ 	float:left;
+ 	margin: 0 1px 1px 0;
+ 	/*background: url(../images/shu.png);*/
+ 	/*box-shadow: 0 0 10px #ccc inset;*/
+ }
+#shereplay{
+	cursor: pointer;
+	display: inline-block;
+	padding: 5px 20px;
+	position: absolute;
+	right: 230px;
+	top: 200px;
+	color:white;
+	border-radius: 30px;
+	background: #3C8012;
+
+}
+#shestart{
+	cursor: pointer;
+	display: inline-block;
+	padding: 5px 20px;
+	position: absolute;
+	right: 263px;
+	top: 100px;
+	border-radius: 30px;
+	background: #3C8012;
+	color:white;
+}
+#shepause{
+	cursor: pointer;
+	display: inline-block;
+	padding: 5px 20px;
+	position: absolute;
+	right: 263px;
+	top: 150px;
+	color:white;
+	border-radius: 30px;
+	background:  #3C8012;
+}
+.shen{
+	background:#BCDE03 url(../images/shen.png);
+}
+.wei{
+	background:#66CC00 url(../images/wei.png);
+}
+.tou{
+	background:#66CC00 url(../images/tou.png);
+}
