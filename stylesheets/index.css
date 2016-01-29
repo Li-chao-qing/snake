@@ -1,14 +1,13 @@
 body{
 	font-family: '微软雅黑';
-	/*height: 10000px;*/
 	margin:0;
 	min-width: 640px;
-	/*background:#7777F5;*/
+	background: url(../images/shu.png);
 
 }
 .item{
 	width: 100%;
-	background: url(../images/shu.png);
+
 }
 .hang{
 	position: absolute;
@@ -18,15 +17,19 @@ body{
 }
 #enter{
 	border-radius: 30px;
-	background: rgba(255,0,0,0.5);
+	/*background: rgba(255,0,0,0.5);*/
 	padding: 5px 20px; 
 	color: white;
+	background: #3C8012;
+	margin-left: 5px;
+	margin-top: -1px;
 }
 #shuru{
 	width: 20px;
 	height: 20px;
+	line-height: 20px;
 	outline: none;/*原来点击有颜色，加这个取消*/
-	/*border: */
+	color: black;
 	padding:2px 10px; 
 	margin-right: 10px;
 
@@ -46,17 +49,10 @@ body{
 #shescene{
 	width: 600px;
 	height:600px;
-	
-	/*border-left: 1px solid #bcde03;*/
-	/*border-top: 1px solid #bcde03;*/
 	margin:0 auto;
  }
  .she-block{
- 	/*background: white;*/
  	float:left;
- 	margin: 0 1px 1px 0;
- 	/*background: url(../images/shu.png);*/
- 	/*box-shadow: 0 0 10px #ccc inset;*/
  }
 #shereplay{
 	cursor: pointer;
@@ -94,10 +90,5 @@ body{
 }
 .shen{
 	background:#BCDE03 url(../images/shen.png);
-}
-.wei{
-	background:#66CC00 url(../images/wei.png);
-}
-.tou{
-	background:#66CC00 url(../images/tou.png);
+	background-size: cover;
 }

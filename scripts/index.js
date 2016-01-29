@@ -1,88 +1,65 @@
 window.onload=function(){
+
 var shescene=document.getElementById('shescene');
 var HANG=15;
 var dict={};
 var RIGHT=39,LEFT=37,UP=38,DOWN=40;
-var direction=RIGHT;
-var chang=(600-HANG)/HANG;
+var direction=RIGHT;//默认方向
+var chang=(600)/HANG;
 var shuru=document.getElementById('shuru');
 var enter=document.getElementById('enter');
-// shuru.onkeyup=function(){
-//      console.log(this.value);
-//      // hang.value=hang.innerHTML;
-//      if(this.value){
-//         HANG=Number(this.value);
-//         console.log(HANG);
-//        enter.onclick=function(){
-//          for(var i=0;i<HANG;i++){
-//         for(var j=0;j<HANG;j++){
-//         var she_kuai=document.createElement('div');
-//         shescene.appendChild(she_kuai);
-//         she_kuai.style.width=chang+'px';
-//         she_kuai.style.height=chang+'px';
-//         she_kuai.setAttribute('class','she-block');
-//         she_kuai.setAttribute('id',i+'-'+j);
+//画块
+var huakuai=function(){
+    for(var i=0;i<HANG;i++){
+        for(var j=0;j<HANG;j++){
+            var she_kuai=document.createElement('div');
+            shescene.appendChild(she_kuai);
+            she_kuai.style.width=chang+'px';
+            she_kuai.style.height=chang+'px';
+            she_kuai.setAttribute('class','she-block');
+            she_kuai.setAttribute('id',i+'-'+j);
 
-//     }
-
-// }
-//        };
-       
-//     }   
-// };
-
-for(var i=0;i<HANG;i++){
-    for(var j=0;j<HANG;j++){
-        var she_kuai=document.createElement('div');
-        shescene.appendChild(she_kuai);
-        she_kuai.style.width=chang+'px';
-        she_kuai.style.height=chang+'px';
-        she_kuai.setAttribute('class','she-block');
-        she_kuai.setAttribute('id',i+'-'+j);
-
+        }
     }
-
-}
-var she_block=document.getElementById('she-block');
-
-
-
-  
+};
+huakuai();
+// 输入
+shuru.onkeyup=function(e){
+    HANG=Number(this.value);
+    chang=(600)/HANG; 
+};
+// shuru.blur=function(){};
 var shestart=document.getElementById('shestart');
 var shepause=document.getElementById('shepause');
 var shek2=false;
 shestart.onclick=function(){
     shek2=true;
-     document.body.scrollTop=5657;
 }
 shepause.onclick=function(){
     shek2=false;
-     document.body.scrollTop=5657;
 }
 var shekaiguan=true;
 
-
+//花蛇
 var snake=[{x:0,y:0},{x:0,y:1},{x:0,y:2}];
 var drawSnake=function(){
     for(var i=0;i<snake.length;i++){
-      
-        dict[snake[i].x+'-'+snake[i].y]=true;
-         
-    document.getElementById(snake[i].x+'-'+snake[i].y).setAttribute('class','she-block shen')
-    //  if(i==2){
-    // document.getElementById(snake[i].x+'-'+snake[i].y).setAttribute('class','she-block tou')}
-        // document.getElementById(snake[i].x+'-'+snake[i].y).style.background='#808080';
-         // document.getElementById(snake[i].x+'-'+snake[i].y).style.boxShadow='2px 2px 0 white inset,-2px -2px 0 white inset';
+        dict[snake[i].x+'-'+snake[i].y]=true; 
+        document.getElementById(snake[i].x+'-'+snake[i].y).setAttribute('class','she-block shen')
     }
 };
 drawSnake();
 
+
+// 食物是否在蛇身上
 var isInsnake=function(x,y){
     if(dict[x+'-'+y]){
         return true;
     }
     return false;
 };
+
+// 投食物
 var dropFood=function(){
     var 
     x=Math.floor(Math.random()*HANG),
@@ -96,9 +73,23 @@ var dropFood=function(){
          y=Math.floor(Math.random()*HANG);
     }
     document.getElementById(x+'-'+y).style.background='url(./images/ping.png)';
+    document.getElementById(x+'-'+y).style.backgroundSize='cover';
     return {foodx:x,foody:y};
 };
 var food=dropFood();
+// 点击确定时重新生成页面
+enter.onclick=function(){
+    var ccc=shescene.children.length;
+    for(var i=0;i<ccc;i++){
+        shescene.removeChild(shescene.lastElementChild);
+    }
+    
+     huakuai();
+     drawSnake();
+     food=dropFood();
+};
+var tiii;
+// 蛇走
 var zou=function(){
     if(shek2){ 
         var last=snake.length-1;
@@ -106,28 +97,30 @@ var zou=function(){
         if(direction==RIGHT){
             newHead={x:snake[last].x,y:snake[last].y+1};
         }
-        if(direction==LEFT){
+        else if(direction==LEFT){
             newHead={x:snake[last].x,y:snake[last].y-1};
         }
-        if(direction==UP){
+        else if(direction==UP){
             newHead={x:snake[last].x-1,y:snake[last].y};
         }
-        if(direction==DOWN){
+        else if(direction==DOWN){
             newHead={x:snake[last].x+1,y:snake[last].y};
         }
+        //撞墙
+
         if(newHead.x>HANG-1||newHead.x<0||newHead.y>HANG-1||newHead.y<0){
             alert('game over');
             clearInterval(tiii);
             shekaiguan=false;
             return;
         }
+        //幢自己
         if(isInsnake(newHead.x,newHead.y)){
-            alert('要自己干嘛');
+            alert('碰到自己了');
             clearInterval(tiii);
             shekaiguan=false;
             return;
         }
-         // tmp.style.borderRadius='0px';
 
         snake.push(newHead);
         dict[newHead.x+'-'+newHead.y]=true;
@@ -135,9 +128,6 @@ var zou=function(){
             var tmp=document.getElementById(food.foodx+'-'+food.foody);
             tmp.style.background='#808080';
             tmp.style.borderRadius='10px';
-            // tmp.style.background='url(./images/shen.png)';
-             // tmp.style.borderRadius='10px';
-            // tmp.style.boxShadow='2px 2px 0 white inset,-2px -2px 0 white inset';
             food=dropFood();
             return;
         }
@@ -147,30 +137,18 @@ var zou=function(){
         var t=document.getElementById(weiba.x+'-'+weiba.y);
         t.style.background='#BCDE03';
         var h=document.getElementById(newHead.x+'-'+newHead.y);
-        //  if(direction==RIGHT){
-        //     h.style.background='url(./images/tou.png)';
-        // }
-        // if(direction==LEFT){
-        //    h.style.background='url(./images/touz.png)';
-        // }
-        // if(direction==UP){
-        //      h.style.background='url(./images/tous.png)';
-        // }
-        // if(direction==DOWN){
-        //     h.style.background='url(./images/toux.png)';
-        // }
-         h.style.background='url(./images/shen.png)';
-        // h.style.boxShadow='2px 2px 0 white inset,-2px -2px 0 white inset';
+        h.style.background='url(./images/shen.png)';
+        h.style.backgroundSize='cover';
         return null;
     }
         
 };
-
-
+//按键时
 document.onkeydown=function(e){
-    e.preventDefault();
-   // if(document.body.scrollTop==5657){
-   //      document.body.scrollTop=5657;
+    if(e.target!==shuru){
+         e.preventDefault();
+    }
+
     if(shekaiguan){
         var d=e.keyCode;
         if(d==37||d==38||d==39||d==40){
@@ -180,23 +158,22 @@ document.onkeydown=function(e){
             }
         }
     }
-   
-   // } 
+ 
 };
 
-var she=document.getElementById('she');
-// she.onclick=function(){
-
-
-// }
 clearInterval(tiii);
-var tiii=setInterval(zou,1000);
+tiii=setInterval(zou,1000);
 
 var shereplay=document.getElementById('shereplay');
-shereplay.onclick=function(){
-location.reload();
-  
-
+shereplay.onclick=function(e){
+    // e.preventDefault();
+    location.reload();
 }
+// document.onmousedown=function(e){
+//     if(e.target!==shuru){
+//          e.preventDefault();
+//     }
+//     // e.preventDefault();
+// };
 
 };//最后
